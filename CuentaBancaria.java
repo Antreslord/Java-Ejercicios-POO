@@ -35,10 +35,11 @@ public class CuentaBancaria {
     
     /*---------------------/ Metodos Especiales /---------------------*/
     //---/ Metodo retirarDinero() /---
-    public void retirarDinero(double dinero){
+    public boolean retirarDinero(double dinero){
         if((dinero+(intereses*dinero)) > saldo){
             System.out.println("Transaccion de retiro Fallida");
             System.out.println("El saldo de la cuenta es Insuficiente");
+            return false;
         }else{
             saldo -= (dinero+(dinero*intereses));
             System.out.println("-----------------------------------");
@@ -46,19 +47,22 @@ public class CuentaBancaria {
             System.out.println("Saldo Actualizado: "+saldo+ "$");
             System.out.println("Cobro por intereses: "+(dinero*intereses)+ "$");
             System.out.println("___________________________________");
+            return true;
         }
     }
     //---/ Metodo consignarDinero() /---
-    public void consignarDinero(double dinero){
+    public boolean consignarDinero(double dinero){
         if(dinero >0){
             saldo += dinero;
             System.out.println("-----------------------------------");
             System.out.println("Transaccion de consignacion Exitosa");
             System.out.println("Saldo Actualizado: "+saldo+ "$");
             System.out.println("___________________________________");
+            return true;
         }
         else{
             System.out.println("Valor ingresado Invalido");
+            return false;
         }
         
     }
