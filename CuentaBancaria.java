@@ -21,19 +21,20 @@ public class CuentaBancaria {
     //------------------------
     private double saldo;
     private double intereses = 0.05;
+    private boolean estado;
     
     /*---------------------/ Constructores /---------------------*/
     public CuentaBancaria(){}
     
-    public CuentaBancaria(String nombres, String apellidos, int numeroCuenta, tipoCuenta cuenta, double saldo){
+    public CuentaBancaria(String nombres, String apellidos, int numeroCuenta, tipoCuenta cuenta){
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.numeroCuenta = numeroCuenta;
         this.cuenta = cuenta;
         this.saldo = 0; 
+        this.estado = false;
     }
-    
-  /*---------------------/ Metodo compararCuentas() /---------------------*/
+    /*---------------------/ Metodo compararCuentas() /---------------------*/
     public void compararCuentas(CuentaBancaria cuenta){
         if(saldo >= cuenta.saldo){
             System.out.println("El saldo de la cuenta actual es Mayor o Igual al saldo de la cuenta ingresada como parametro");
@@ -52,46 +53,53 @@ public class CuentaBancaria {
     /*---------------------/ Metodos Especiales /---------------------*/
     //---/ Metodo retirarDinero() /---
     public boolean retirarDinero(double dinero){
-        if((dinero+(intereses*dinero)) > saldo){
-            System.out.println("Transaccion de retiro Fallida");
-            System.out.println("El saldo de la cuenta es Insuficiente");
-            return false;
-        }else{
+    //Debe devolver un valor booleano ya que se necesita saber si la transaccion se puede realizar para siguientes METODOS;
+        if((dinero+(intereses*dinero)) < saldo){
             saldo -= (dinero+(dinero*intereses));
             System.out.println("-----------------------------------");
             System.out.println("Transaccion de retiro Exitosa");
             System.out.println("Saldo Actualizado: "+saldo+ "$");
             System.out.println("Cobro por intereses: "+(dinero*intereses)+ "$");
             System.out.println("___________________________________");
+            estado = (saldo > 0);
             return true;
+        }else{
+            System.out.println("Transaccion de retiro Fallida");
+            System.out.println("El saldo de la cuenta es Insuficiente");
+            return false;
         }
     }
     //---/ Metodo consignarDinero() /---
-    public boolean consignarDinero(double dinero){
+    public boolean consignarDinero(double dinero){ 
+    //Debe devolver un valor booleano ya que se necesita saber si la transaccion se puede realizar para siguientes METODOS;
         if(dinero >0){
             saldo += dinero;
             System.out.println("-----------------------------------");
             System.out.println("Transaccion de consignacion Exitosa");
             System.out.println("Saldo Actualizado: "+saldo+ "$");
             System.out.println("___________________________________");
+            estado = true;
             return true;
         }
         else{
             System.out.println("Valor ingresado Invalido");
             return false;
-        } 
+        }  
     }
     //---/ Metodo consultarValor() /---
     public void consultarSaldo(){
+        String mostrarEstado = (estado == true)?"Activa":"Inactiva";
         System.out.println(  "------------- Banco Infravalor -------------"+"\n"+
                 "____________________________________________"+"\n"+
                 "\n"+
                 "Numero de cuenta "+cuenta+": "+numeroCuenta+"\n"+
+                "Estado de Cuenta: "+mostrarEstado+"\n"+
                 "Saldo: "+saldo+"\n"+
                 "____________________________________________");
     }
     //---/ Metodo toString() /---
     public String toString(){
+        String mostrarEstado = (estado == true)?"Activa":"Inactiva";
         return  "------------- Banco Infravalor -------------"+"\n"+
                 "____________________________________________"+"\n"+
                 "\n"+
@@ -99,6 +107,7 @@ public class CuentaBancaria {
                 "Tipo de cuenta: "+cuenta+"\n"+
                 "Numero de cuenta: "+numeroCuenta+"\n"+
                 "Saldo en la cuenta: "+saldo+" $"+"\n"+
+                "Estado de la cuenta: "+mostrarEstado+"\n"+
                 "____________________________________________";
     }
     
@@ -140,7 +149,9 @@ public class CuentaBancaria {
     /*-------------------------------------------------------------------------------------------------------------------*/
     public static void main(String args[]){
         
-        CuentaBancaria cuenta1 = new CuentaBancaria("Cristian", "Amaya Perez", 123456789, tipoCuenta.ahorros, 0);
+        CuentaBancaria cuenta1 = new CuentaBancaria("Cristian", "Amaya Perez", 123456789, tipoCuenta.ahorros);
+        
+        CuentaBancaria cuenta2 = new CuentaBancaria("Julio", "Rodriguez", 987654321, tipoCuenta.ahorros);
         
         System.out.println(cuenta1);
         cuenta1.consignarDinero(20000);
@@ -149,6 +160,11 @@ public class CuentaBancaria {
         cuenta1.retirarDinero(5000);
         cuenta1.retirarDinero(1000);
         cuenta1.consultarSaldo();
+        System.out.println("*******************************************************");
+        cuenta1.transferencia(cuenta2, 1000);
+        //---------------------------------------
+        cuenta1.consultarSaldo();
+        cuenta2.consultarSaldo();
 
     }
 }
