@@ -88,7 +88,7 @@ public class CuentaBancaria {
     }
     //---/ Metodo consultarValor() /---
     public void consultarSaldo(){
-        String mostrarEstado = (estado == true)?"Activa":"Inactiva";
+        String mostrarEstado = (estado == true)? "Activa": "Inactiva";
         System.out.println(  "------------- Banco Infravalor -------------"+"\n"+
                 "____________________________________________"+"\n"+
                 "\n"+
