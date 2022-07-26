@@ -33,6 +33,22 @@ public class CuentaBancaria {
         this.saldo = 0; 
     }
     
+  /*---------------------/ Metodo compararCuentas() /---------------------*/
+    public void compararCuentas(CuentaBancaria cuenta){
+        if(saldo >= cuenta.saldo){
+            System.out.println("El saldo de la cuenta actual es Mayor o Igual al saldo de la cuenta ingresada como parametro");
+        }else{
+            System.out.println("El Saldo de la cuenta actual es menor al saldo de la cuenta ingresada como paramatro");
+        }
+    }
+    
+    /*---------------------/ Metodo transferencia() /---------------------*/
+    public void transferencia(CuentaBancaria cuenta, double valor){
+        if(retirarDinero(valor)){ // depependiendo de true o false se puede realizar un retiro.
+            cuenta.consignarDinero(valor);
+        }
+    }
+    
     /*---------------------/ Metodos Especiales /---------------------*/
     //---/ Metodo retirarDinero() /---
     public boolean retirarDinero(double dinero){
@@ -63,8 +79,7 @@ public class CuentaBancaria {
         else{
             System.out.println("Valor ingresado Invalido");
             return false;
-        }
-        
+        } 
     }
     //---/ Metodo consultarValor() /---
     public void consultarSaldo(){
