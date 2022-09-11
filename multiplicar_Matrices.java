@@ -52,6 +52,7 @@ public class Matrices {
                 MAux[i][j] = sca.nextInt();
             }
         }
+        System.out.print("-----------------------------------");
         
         return MAux;
     }
@@ -80,20 +81,17 @@ public class Matrices {
     
     public static void main(String[] args) {
         
-        Matrices m1 = new Matrices();
+        int[][] ma;
         
-        Matrices m2 = new Matrices();
+        Matrices m1 = new Matrices(ma = Matrices.llenarMatriz());
+        
+        Matrices m2 = new Matrices(ma = Matrices.llenarMatriz());
         
         System.out.println(m1);
         System.out.println(m2);
         
         Matrices m3 = new Matrices(m1.getMatriz(), m2.getMatriz());
         System.out.println(m3);
-        
-        int max[][];
-        Matrices m4 = new Matrices(max = Matrices.llenarMatriz());
-        
-        System.out.println(m4);
         
     }
 }
