@@ -90,8 +90,8 @@ public class Matrices {
         Matrices m3 = new Matrices(m1.getMatriz(), m2.getMatriz());
         System.out.println(m3);
         
-        int max[][] = Matrices.llenarMatriz();
-        Matrices m4 = new Matrices(max);
+        int max[][];
+        Matrices m4 = new Matrices(max = Matrices.llenarMatriz());
         
         System.out.println(m4);
         
